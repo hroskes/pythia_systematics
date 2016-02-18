@@ -1,2 +1,3 @@
 *.lhe
 *.root
+slurm-*.out
