@@ -4,8 +4,15 @@
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
 # with command line options: Configuration/GenProduction/python/HIG-RunIIWinter15GS-00123-fragment.py --filein file:WH_125_LHE.root --fileout file:HIG-RunIIWinter15GS-00123.root --mc --eventcontent RAWSIM --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN --inputCommands keep *,drop LHEXMLStringProduct_*_*_* --conditions MCRUN2_71_V1::All --beamspot NominalCollision2015 --step GEN --magField 38T_PostLS1 --python_filename HIG-RunIIWinter15GS-00123_1_cfg.py --no_exec -n 53
 import FWCore.ParameterSet.Config as cms
+import sys
 
 process = cms.Process('GEN')
+
+totalevents = int(200000)
+eventsperjob = 10000
+njob = int(sys.argv[2])
+assert totalevents % eventsperjob == 0
+assert njob < totalevents / eventsperjob
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -24,17 +31,34 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.MessageLogger.cerr.FwkReport.reportEvery = 5000
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(eventsperjob)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring(),
-    fileNames = cms.untracked.vstring('file:VBFscalar0_decayed.root'),
+    fileNames = cms.untracked.vstring(
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_0.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_1.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_10.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_11.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_12.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_13.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_14.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_2.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_3.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_4.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_5.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_6.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_7.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_8.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_9.root',
+    ),
     inputCommands = cms.untracked.vstring('keep *', 
         'drop LHEXMLStringProduct_*_*_*'),
     dropDescendantsOfDroppedBranches = cms.untracked.bool(False)
 )
+process.source.skipEvents=cms.untracked.uint32(eventsperjob * njob)
 
 process.options = cms.untracked.PSet(
 
