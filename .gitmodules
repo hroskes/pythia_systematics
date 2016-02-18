@@ -1,0 +1,3 @@
+[submodule "GenLevelTools"]
+	path = GenLevelTools
+	url = ./GenLevelTools/
