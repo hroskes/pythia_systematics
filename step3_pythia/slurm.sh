@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=24:0:0
+#SBATCH --time=6:0:0
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --partition=shared
