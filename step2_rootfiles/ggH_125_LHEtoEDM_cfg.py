@@ -29,18 +29,18 @@ process.maxEvents = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("LHESource",
     fileNames = cms.untracked.vstring(
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_0.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_1.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_10.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_11.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_2.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_3.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_4.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_5.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_6.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_7.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_8.lhe',
-        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_9.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_0.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_1.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_10.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_11.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_2.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_3.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_4.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_5.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_6.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_7.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_8.lhe',
+        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step1_lhefiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_9.lhe',
     )
 )   
 process.source.skipEvents=cms.untracked.uint32(eventsperjob * njob)
