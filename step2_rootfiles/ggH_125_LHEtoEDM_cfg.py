@@ -9,7 +9,7 @@ import sys
 process = cms.Process('LHE')
 
 totalevents = int(1.5e6)
-eventsperjob = 100000
+eventsperjob = totalevents
 njob = int(sys.argv[2])
 assert totalevents % eventsperjob == 0
 assert njob < totalevents / eventsperjob

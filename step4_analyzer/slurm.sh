@@ -7,8 +7,10 @@
 #SBATCH --mail-type=end
 #SBATCH --mail-user=heshyslurm@gmail.com
 
-totalevents=200000
-eventsperfile=10000
+[ $2 ]											&&
+
+totalevents=100000									&&
+eventsperfile=10000									&&
 
 if [ ${SLURM_SUBMIT_DIR} ]; then cd ${SLURM_SUBMIT_DIR}; fi				&&
 echo "SLURM job running in: " `pwd`							&&
@@ -17,7 +19,7 @@ eval $(scram ru -sh)									&&
 indir="$(pwd | sed 's/step4_analyzer/step3_pythia/')"					&&
 
 skipevents=$(echo "
-i=$1;
+i=$2;
 if i == 0:
     print '(0.1)'
 else:
@@ -26,7 +28,7 @@ else:
 
 echo $skipevents									&&
 
-cmd="./analyzer indir=$indir $(ls $indir | grep [.]root ) outdir=$(pwd) outfile=analyzed_$1.root includeGenDecayProb=g1 includeRecoDecayProb=g1 includeGenProdProb=g1 includeRecoProdProb=g1 computeVBFProdAngles=1 sampleProductionId=JJVBF,JHUGen maxevents=$eventsperfile skipevents=$skipevents fileLevel=1"	&&
+cmd="./analyzer indir=$indir $(ls $indir | grep _${1}[.]root ) outdir=$(pwd) outfile=analyzed_${1}_$2.root includeGenDecayProb=g1 includeRecoDecayProb=g1 includeGenProdProb=g1 includeRecoProdProb=g1 computeVBFProdAngles=1 sampleProductionId=JJVBF,JHUGen maxevents=$eventsperfile skipevents=$skipevents fileLevel=1 pythiaLevel=0 jetAlgorithm=ak4 tmpDir=$(pwd)/tmpStore_${1}_${2}/"	&&
 echo $cmd										&&
 
 cd ../../../../CMSJHU_AnalysisMacros/JHUSpinWidthPaper_2015/LHEAnalyzer/		&&

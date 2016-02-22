@@ -5,6 +5,7 @@
 # with command line options: Configuration/GenProduction/python/HIG-RunIIWinter15GS-00123-fragment.py --filein file:WH_125_LHE.root --fileout file:HIG-RunIIWinter15GS-00123.root --mc --eventcontent RAWSIM --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN --inputCommands keep *,drop LHEXMLStringProduct_*_*_* --conditions MCRUN2_71_V1::All --beamspot NominalCollision2015 --step GEN --magField 38T_PostLS1 --python_filename HIG-RunIIWinter15GS-00123_1_cfg.py --no_exec -n 53
 import FWCore.ParameterSet.Config as cms
 import sys
+from Configuration.Generator.Pythia8CUETP8M1Settings_UpVariation_cfi import *
 
 process = cms.Process('GEN')
 
@@ -87,6 +88,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
     comEnergy = cms.double(13000.0),
     maxEventsToPrint = cms.untracked.int32(1),
     PythiaParameters = cms.PSet(
+        pythia8CUETP8M1UpVariationSettingsBlock,
         pythia8CommonSettings = cms.vstring('Tune:preferLHAPDF = 2', 
             'Main:timesAllowErrors = 10000', 
             'Check:epTolErr = 0.01', 
@@ -96,11 +98,6 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
             'ParticleDecays:limitTau0 = on', 
             'ParticleDecays:tau0Max = 10', 
             'ParticleDecays:allowPhotonRadiation = on'),
-        pythia8CUEP8M1Settings = cms.vstring('Tune:pp 14', 
-            'Tune:ee 7', 
-            'MultipartonInteractions:pT0Ref=2.4024', 
-            'MultipartonInteractions:ecmPow=0.25208', 
-            'MultipartonInteractions:expPow=1.6'),
         pythia8PowhegEmissionVetoSettings = cms.vstring('POWHEG:veto = 1', 
             'POWHEG:pTdef = 1', 
             'POWHEG:emitted = 0', 
@@ -111,7 +108,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
             'TimeShower:pTmaxMatch = 2'),
         processParameters = cms.vstring('POWHEG:nFinal = 2'),
         parameterSets = cms.vstring('pythia8CommonSettings', 
-            'pythia8CUEP8M1Settings', 
+            'pythia8CUETP8M1UpVariationSettings', 
             'pythia8PowhegEmissionVetoSettings', 
             'processParameters')
     )
