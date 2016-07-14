@@ -39,7 +39,7 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring(),
     fileNames = cms.untracked.vstring(
-        'file:/scratch/users/jroskes1@jhu.edu/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_0.root',
+        'file:/work-zfs/lhc/heshy/pythia_systematics/CMSSW_7_6_3/src/step2_rootfiles/Higgs0PMToZZTo4L_M-125_13TeV-powheg2-JHUgenV5_0.root',
     ),
     inputCommands = cms.untracked.vstring('keep *', 
         'drop LHEXMLStringProduct_*_*_*'),
