@@ -1,3 +1,12 @@
 [submodule "GenLevelTools"]
 	path = GenLevelTools
-	url = ./GenLevelTools/
+	url = git@github.com:hroskes/runpythia
+        branch = master
+[submodule "HiggsAnalysis/CombinedLimit"]
+        path = HiggsAnalysis/CombinedLimit
+        url = git@github.com:cms-analysis/HiggsAnalysis-CombinedLimit
+        branch = 74x-root6
+[submodule "ZZMatrixElement"]
+        path = ZZMatrixElement
+        url = git@github.com:cms-analysis/HiggsAnalysis-ZZMatrixElement
+        branch = master
