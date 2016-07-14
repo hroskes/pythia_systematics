@@ -1,7 +1,7 @@
 [submodule "GenLevelTools"]
 	path = GenLevelTools
 	url = git@github.com:hroskes/runpythia
-        branch = master
+        branch = plotsfromdavid
 [submodule "HiggsAnalysis/CombinedLimit"]
         path = HiggsAnalysis/CombinedLimit
         url = git@github.com:cms-analysis/HiggsAnalysis-CombinedLimit
