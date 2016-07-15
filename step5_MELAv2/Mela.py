@@ -128,9 +128,9 @@ class TreeWrapper(Iterator):
 
         leadingjets = ROOT.SimpleParticleCollection_t()
         if self.nCleanedJetsPt30 >= 1:
-            leadingjets.push_back(associatedjets[0])
+            leadingjets.push_back(ROOT.SimpleParticle_t(0, associatedjets[0].momentum))
         if self.nCleanedJetsPt30 >= 2:
-            leadingjets.push_back(associatedjets[1])
+            leadingjets.push_back(ROOT.SimpleParticle_t(0, associatedjets[1].momentum))
         mela.setInputEvent(leptons, leadingjets, 0, False)
 
         p_tmp = array.array('f', [0])
@@ -223,6 +223,5 @@ if __name__ == "__main__":
             if os.path.exists(newfilename): continue
 
             with TreeWrapper(filename, newfilename) as treewrapper:
-                print treewrapper
                 for entry in treewrapper:
                     treewrapper.fillnewt()
