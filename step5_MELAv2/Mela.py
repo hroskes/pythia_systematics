@@ -1,11 +1,26 @@
 import array
 from collections import Counter, Iterator, OrderedDict
+import contextlib
+from math import copysign
 import os
 import ROOT
+import subprocess
+import tempfile
+
+@contextlib.contextmanager
+def cd(newdir):
+    """http://stackoverflow.com/a/24176022/5228524"""
+    prevdir = os.getcwd()
+    os.chdir(os.path.expanduser(newdir))
+    try:
+        yield
+    finally:
+        os.chdir(prevdir)
 
 ROOT.gROOT.Macro("$CMSSW_BASE/src/ZZMatrixElement/MELA/test/loadMELA.C")
 ROOT.gROOT.LoadMacro("MelaWrapper.cc")
 ROOT.gROOT.LoadMacro("Category.cc")
+ROOT.gSystem.Load('libCondFormatsBTauObjects')
 TVar = ROOT.TVar
 
 mela = ROOT.Mela(13, 125, TVar.ERROR)
@@ -13,7 +28,26 @@ mela = ROOT.Mela(13, 125, TVar.ERROR)
 ROOT.SimpleParticle_t.id = property(lambda self: self.first)
 ROOT.SimpleParticle_t.momentum = property(lambda self: self.second)
 ROOT.SimpleParticle_t.pt = property(lambda self: self.momentum.Pt())
-ROOT.SimpleParticle_t.isbtagged = lambda self: abs(self.id) == 5
+ROOT.SimpleParticle_t.eta = property(lambda self: self.momentum.Eta())
+
+csvfile = "CSVv2_4invfb.csv"
+CSVFile = ROOT.BTagCalibration("csvv2",csvfile)
+btaggers = {}
+for systematic in "central", "up", "down":
+    btaggers[0,systematic] = btaggers[1,systematic] = ROOT.BTagCalibrationReader(CSVFile, 1, "mujets", systematic)
+    btaggers[2,systematic] = ROOT.BTagCalibrationReader(CSVFile, 1, "incl", systematic)
+
+def isbtagged(self, systematic):
+    if abs(self.id) == 5:
+        FLAV = 0
+    elif abs(self.id) == 4:
+        FLAV = 1
+    elif 1 <= abs(self.id) <= 3 or self.id == 21:
+        FLAV = 2
+    result = btaggers[FLAV,systematic].eval(FLAV, copysign(min(abs(self.eta), 2.35), self.eta), min(self.pt, 669))
+    print self.id, result
+    return result
+ROOT.SimpleParticle_t.isbtagged = isbtagged
 
 
 class TreeWrapper(Iterator):
@@ -123,7 +157,7 @@ class TreeWrapper(Iterator):
         self.nExtraZ = sum(min(associatedleptonscounter[i], associatedleptonscounter[-i]) for i in (11, 13, 15))
         cleanedJetsPt30 = [jet for jet in associatedjets if jet.pt >= 30]
         self.nCleanedJetsPt30 = len(cleanedJetsPt30)
-        cleanedJetsPt30BTagged = [jet for jet in cleanedJetsPt30 if jet.isbtagged()]
+        cleanedJetsPt30BTagged = [jet for jet in cleanedJetsPt30 if jet.isbtagged("central")]
         self.nCleanedJetsPt30BTagged = len(cleanedJetsPt30BTagged)
 
         leadingjets = ROOT.SimpleParticleCollection_t()
