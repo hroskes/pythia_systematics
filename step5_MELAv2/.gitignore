@@ -1,0 +1,5 @@
+*.pyc
+br.sm*
+*.dat
+*.DAT
+Pdfdata
