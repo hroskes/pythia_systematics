@@ -29,6 +29,7 @@ ROOT.SimpleParticle_t.id = property(lambda self: self.first)
 ROOT.SimpleParticle_t.momentum = property(lambda self: self.second)
 ROOT.SimpleParticle_t.pt = property(lambda self: self.momentum.Pt())
 ROOT.SimpleParticle_t.eta = property(lambda self: self.momentum.Eta())
+ROOT.SimpleParticle_t.phi = property(lambda self: self.momentum.Phi())
 
 csvfile = "CSVv2_4invfb.csv"
 CSVFile = ROOT.BTagCalibration("csvv2",csvfile)
@@ -38,15 +39,16 @@ for systematic in "central", "up", "down":
     btaggers[2,systematic] = ROOT.BTagCalibrationReader(CSVFile, 1, "incl", systematic)
 
 def isbtagged(self, systematic):
-    if abs(self.id) == 5:
-        FLAV = 0
-    elif abs(self.id) == 4:
-        FLAV = 1
-    elif 1 <= abs(self.id) <= 3 or self.id == 21:
-        FLAV = 2
-    result = btaggers[FLAV,systematic].eval(FLAV, copysign(min(abs(self.eta), 2.35), self.eta), min(self.pt, 669))
-    print self.id, result
-    return result
+#    if abs(self.id) == 5:
+#        FLAV = 0
+#    elif abs(self.id) == 4:
+#        FLAV = 1
+#    elif 1 <= abs(self.id) <= 3 or self.id == 21:
+#        FLAV = 2
+#    result = btaggers[FLAV,systematic].eval(FLAV, copysign(min(abs(self.eta), 2.35), self.eta), min(self.pt, 669))
+#    print self.id, result
+#    return result
+    return abs(self.id) == 5
 ROOT.SimpleParticle_t.isbtagged = isbtagged
 
 
@@ -159,6 +161,9 @@ class TreeWrapper(Iterator):
         self.nCleanedJetsPt30 = len(cleanedJetsPt30)
         cleanedJetsPt30BTagged = [jet for jet in cleanedJetsPt30 if jet.isbtagged("central")]
         self.nCleanedJetsPt30BTagged = len(cleanedJetsPt30BTagged)
+        self.jetphi = array.array('f', [jet.phi for jet in cleanedJetsPt30])
+        if not self.jetphi: self.jetphi.append(0)
+        self.ZZMass = self.tree.ZZMass
 
         leadingjets = ROOT.SimpleParticleCollection_t()
         if self.nCleanedJetsPt30 >= 1:
@@ -224,6 +229,8 @@ class TreeWrapper(Iterator):
                                                       self.pAux_vbf_VAJHU,
                                                       self.pwh_hadronic_VAJHU,
                                                       self.pzh_hadronic_VAJHU,
+                                                      self.jetphi,
+                                                      self.ZZMass,
                                                       useQGTagging,
                                                      )
 

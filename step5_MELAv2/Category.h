@@ -1,4 +1,4 @@
-//https://github.com/CJLST/ZZAnalysis/blob/0358939f858a1744c25265127487ad152ce9b956/AnalysisStep/interface/Category.h
+//https://github.com/CJLST/ZZAnalysis/blob/dd4e0f4e555917027a1fc507dc9cfa5ed8a8d6b2/AnalysisStep/interface/Category.h
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
@@ -70,6 +70,8 @@ extern "C" int categoryIchep16(
 	     float pAux_vbf_VAJHU,
 	     float pwh_hadronic_VAJHU,
 	     float pzh_hadronic_VAJHU,
+             float* jetPhi,
+             float ZZMass,
 	     bool useQGTagging = true
 	     );
 
