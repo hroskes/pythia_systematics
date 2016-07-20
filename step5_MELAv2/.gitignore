@@ -3,3 +3,6 @@ br.sm*
 *.dat
 *.DAT
 Pdfdata
+*.d
+*.so
+*.pcm

@@ -143,13 +143,13 @@ extern "C" int categoryIchep16(
     WP_ZHh = 0.996;
   }else{
     //WP_VBF2j = 0.938; // non mass-dependent cut
-    WP_VBF2j = 0.536+665./(ZZMass+1530.); // mass-dependent cut
+    WP_VBF2j = 1.043-460./(ZZMass+634.);
     WP_VBF1j = 0.815;
     WP_WHh = 0.959;
     WP_ZHh = 0.9946;
   }
 
-  float c_Mela2j = 0.06;
+  float c_Mela2j = 1.1310070753097534;
   float c_Mela1j = 0.3;
   float c_MelaWH = 100000.;
   float c_MelaZH = 10000.;
@@ -222,7 +222,7 @@ int categoryIchep16_noextern(
     for (int i = 0; i < nCleanedJetsPt30; i++)
       jetQGLikelihood[i] = 0;
 
-    result = categoryIchep16(
+    auto result = categoryIchep16(
              nExtraLep,
              nExtraZ,
              nCleanedJetsPt30,
